@@ -1,3 +1,18 @@
+:root {
+  --p-color: #005bb3;
+  --bg-color: #ffffff;
+  --text-color: #444a55;
+  --input-color: #a7b1c1;
+  --placeholder-color: #91969e;
+  --input-hover-color : #70747a;
+  --btn-hover-color : #024b90;
+  --font-family: "Gill Sans", sans-serif;
+  --h1-font: clamp(1.4em, 4vw, 1.7em);
+  --h2-font: clamp(1.3em, 4vw, 1.5em);
+  --h-text-font: clamp(1em, 2vw, 1.2em);
+  --heading-font: clamp(1.7em, 6vw, 2.7em);
+  --text-font: clamp(1em, 2vw, 1.1em);
+}
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
@@ -5,17 +20,61 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-color: #F0F2F5;
 }
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, 'Courier New',
     monospace;
+
 }
+/* NOTES LIST */
 .notes-list{
   display: grid;
   grid-gap: 1rem;
   grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
 }
+
+
+/* Note */
+.note-body{
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  background-color: var(--bg-color);
+  min-height: 10em;
+}
+.note-heading{
+  font-size: var(--h-text-font);
+}
 .note-footer{
-  text-align: right;
+  text-align: center;
+}
+.note-footer span:nth-child(2){
+  font-size: 80%;
+}
+
+
+/* HEADER */
+.header .input-group {
+  border: 1px solid var(--input-color);
+  border-radius: 0.25em;
+  margin-left:auto;
+  background-color: var(--bg-color);
+  width:40%;
+}
+.header .input-group:hover,
+.header .input-group:focus-within {
+  border: 1px solid var(--input-hover-color);
+}
+.input-lg:focus{
+outline: none !important;
+border:none;
+}
+.input-group input{
+  overflow: hidden;
+}
+.vertical-line{
+  width:1px;
+  height:30em;
+  background-color: black !important;
+  font-size: 5%;
 }
