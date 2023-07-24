@@ -1,12 +1,12 @@
-const Note = () => {
+const Note = ({id, heading, text, date}) => {
   return (
     <div className="note">
       <div className="note-body rounded p-2 m-1 ">
-        <span>Hello! This is our first note.</span>
+        <span>{text}</span>
       </div>
       <div className="note-footer d-flex flex-column">
-        <span className="note-heading">de</span>
-        <span className="text-muted">07/23/2023</span>
+        <span className="note-heading">{heading}</span>
+        <span className="text-muted">{date}</span>
       </div>
     </div>
   );

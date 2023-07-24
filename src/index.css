@@ -78,3 +78,10 @@ border:none;
   background-color: black !important;
   font-size: 5%;
 }
+
+/* ADD NOTE */
+.note.new textarea{
+  resize: none;
+  outline: none;
+  border: none;
+}
