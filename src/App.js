@@ -11,32 +11,11 @@ const initialLists = [
     date: "07/24/2023",
     selected: false,
   },
-  {
-    id: 1,
-    heading: "Heading 2",
-    text: "my second note",
-    date: "07/24/2023",
-    selected: false,
-  },
-  {
-    id: 2,
-    heading: "Heading 2",
-    text: "my third note",
-    date: "07/24/2023",
-    selected: false,
-  },
-  {
-    id: 3,
-    heading: "Heading 2",
-    text: "my fourth note",
-    date: "07/24/2023",
-    selected: false,
-  },
 ];
 
 const App = () => {
   const [notes, setNotes] = useState(initialLists);
-
+  const [isAnyDivSelected, setIsAnyDivSelected] = useState(false);
   const addNote = (noteText) => {
     const date = new Date();
     const newNotes = {
@@ -45,10 +24,11 @@ const App = () => {
       text: noteText,
       date: date.toLocaleDateString(),
     };
-    console.log(newNotes.id);
+
     setNotes([...notes, newNotes]);
   };
   const handleDiv = (id) => {
+setIsAnyDivSelected(true);
     setNotes((notes) =>
       notes.map((note) => ({
         ...note,
@@ -63,7 +43,11 @@ const App = () => {
 
   return (
     <div className="App container">
-      <Header handleDeleteNote={deleteNote} />
+      <Header
+        handleDeleteNote={deleteNote}
+        isAnyDivSelected={isAnyDivSelected}
+        setIsAnyDivSelected={setIsAnyDivSelected}
+      />
       <NotesList
         notes={notes}
         handleAddNote={addNote}
