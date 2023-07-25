@@ -41,6 +41,10 @@ code {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
   background-color: var(--bg-color);
   min-height: 10em;
+  overflow-y:scroll;
+  white-space: pre-wrap;
+  max-width: 100%;
+  max-height: 10em;
 }
 .note-heading{
   font-size: var(--h-text-font);
@@ -72,6 +76,9 @@ border:none;
 .input-group input{
   overflow: hidden;
 }
+.input-lg{
+  width:100%;
+}
 .vertical-line{
   width:1px;
   height:30em;
@@ -84,4 +91,20 @@ border:none;
   resize: none;
   outline: none;
   border: none;
+  overflow: hidden;
+  white-space: pre-wrap;
+  height: 100%;
+  width: 100%;
+  max-width: 100%;
+  max-height: 100%;
+}
+.btn{
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+}
+.note-body.border-yellow{
+  border: 2px solid yellow;
+}
+.icons{
+  cursor: pointer;
 }
