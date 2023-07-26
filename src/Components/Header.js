@@ -1,8 +1,10 @@
 import { MdDeleteForever } from "react-icons/md";
-import Modal from "./Modal";
+import { MdEditCalendar } from "react-icons/md";
+import DeleteModal from "./DeleteModal";
 import { MdSearch } from "react-icons/md";
 import { useState } from "react";
 import { MdDarkMode } from "react-icons/md";
+import { MdArrowBackIos } from "react-icons/md";
 
 const Header = ({
   handleDeleteNote,
@@ -13,18 +15,26 @@ const Header = ({
 
   return (
     <div className=" header  mb-4 mt-4  d-flex flex-nowrap flex-row justify-content-between align-items-center">
-      <button
-        className="btn del-btn"
-        disabled={!isAnyDivSelected}
-        onClick={() => {
-          setIsOpen(true);
-          setIsAnyDivSelected(false);
-        }}
-      >
-        <MdDeleteForever className="delete-icon icons" size="1.6em" />
-      </button>
-
-      <Modal
+      <div className="d-flex flex-row align-items-center">
+        <button className="btn back-btn ">
+          <MdArrowBackIos className="icons me-2 back-icon" size="1.5em" />
+        </button>
+        <button
+          className="btn del-btn"
+          disabled={!isAnyDivSelected}
+          onClick={() => {
+            setIsOpen(true);
+            setIsAnyDivSelected(false);
+          }}
+        >
+          <MdDeleteForever className="delete-icon icons" size="1.6em" />
+        </button>
+        <div class="vertical-line ms-2">|</div>
+        <button className="btn create-btn">
+          <MdEditCalendar className="icons create-icon ms-2" size="1.6em" />
+        </button>
+      </div>
+      <DeleteModal
         open={isOpen}
         onClose={() => setIsOpen(false)}
         handleDeleteNote={handleDeleteNote}

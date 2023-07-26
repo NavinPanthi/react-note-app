@@ -79,19 +79,16 @@ code {
   width: 100%;
 }
 .vertical-line {
-  width: 1px;
+  width: 1.5px;
   height: 30em;
   background-color: black !important;
   font-size: 5%;
 }
-.del-btn,.theme-btn{
-  padding: 0 !important;
-}
 
-
-.btn.del-btn:focus, .btn.theme-btn:focus{
+.header .btn{
   outline: none  !important;
   box-shadow: none !important;
+  padding: 0 !important;
 }
 
 
@@ -117,8 +114,11 @@ code {
 }
 .icons {
   cursor: pointer;
+  
+
+/* DeleteModal */
 }
-.modal {
+.delete-modal {
   height: auto;
   width: 300px;
   display: block;
@@ -130,6 +130,6 @@ code {
   
 }
 
-.modal .btn{
+.delete-modal .btn{
   width:100%;
 }

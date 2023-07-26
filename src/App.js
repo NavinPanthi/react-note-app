@@ -38,7 +38,7 @@ setIsAnyDivSelected(true);
   };
   const deleteNote = () => {
     setNotes(notes.filter((note) => !note.selected));
-    console.log("dele");
+
   };
 
   return (
