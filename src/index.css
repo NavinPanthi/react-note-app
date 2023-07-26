@@ -13,6 +13,7 @@
   --heading-font: clamp(1.7em, 6vw, 2.7em);
   --text-font: clamp(1em, 2vw, 1.1em);
 }
+
 body {
   margin: 0;
   font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", "Roboto", "Oxygen",
@@ -46,14 +47,18 @@ code {
   max-width: 100%;
   max-height: 10em;
 }
+
 .note-heading {
   font-size: var(--h-text-font);
 }
 .note-footer {
   text-align: center;
 }
-.note-footer span:nth-child(2) {
-  font-size: 80%;
+.text-muted{
+  font-size: 75%;
+}
+.note-body.border-yellow {
+  border: 1px solid black;
 }
 
 /* HEADER */
@@ -85,39 +90,20 @@ code {
   font-size: 5%;
 }
 
-.header .btn{
-  outline: none  !important;
+.header .btn {
+  outline: none !important;
   box-shadow: none !important;
   padding: 0 !important;
 }
-
-
-/* ADD NOTE */
-.note.new textarea {
-  resize: none;
-  outline: none;
-  border: none;
-  overflow: hidden;
-  white-space: pre-wrap;
-  height: 100%;
-  width: 100%;
-  max-width: 100%;
-  max-height: 100%;
-}
-.note-footer .btn {
-  background-color: white;
-  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
-    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
-}
-.note-body.border-yellow {
-  border: 1px solid black;
-}
 .icons {
   cursor: pointer;
-  
+}
+.name{
+  font-size: 1.5em;
+}
 
 /* DeleteModal */
-}
+
 .delete-modal {
   height: auto;
   width: 300px;
@@ -127,9 +113,41 @@ code {
   top: 50%;
   left: 50%;
   transform: translate(-50%, -50%);
-  
 }
 
-.delete-modal .btn{
-  width:100%;
+.delete-modal .btn {
+  width: 100%;
+}
+
+/* CREATE MODAL */
+.note.new.create-modal {
+  height: auto;
+  width: 100%;
+  display: block;
+  position: absolute;
+  top: 107px;
+  left: 50%;
+  transform: translate(-50%, 0%);
+  height: 90vh;
+
+}
+.note.new.create-modal .whole {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+  min-height: 10em;
+  white-space: pre-wrap;
+  height: 90vh;
+
+}
+.note.new.create-modal textarea {
+  resize: none;
+  outline: none;
+  border: none;
+  white-space: pre-wrap;
+  width: 100%;
+  height: 90vh;
+}
+.note-footer .btn {
+  box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
+    rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
 }
