@@ -24,7 +24,8 @@
 
 import Note from "./Note";
 // import AddNote from "./AddNote";
-const NotesList = ({ notes,  handleDivClick }) => {
+const NotesList = ({ notes,  handleDivClick, isCreateModalOpen }) => {
+  if(isCreateModalOpen) return null;
   return (
     <div className="notes-list">
       {notes.map((note) => (

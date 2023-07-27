@@ -1,6 +1,6 @@
 import { MdCircle } from "react-icons/md";
 const Note = ({ id, heading, text, date, selected, words, handleDivClick }) => {
-  let className = "note-body rounded p-2 m-1";
+  let className = "note-body rounded p-2 ";
 
   if (selected) {
     className += " border-yellow";
@@ -11,14 +11,15 @@ const Note = ({ id, heading, text, date, selected, words, handleDivClick }) => {
         <span>{text}</span>
       </div>
       <div className="note-footer d-flex flex-column">
+      <span className="note-heading">{heading}</span>
         <div className="d-flex flex-row justify-content-center align-items-center">
           <span className="text-muted">
             {words} {words > 1 ? "words" : "word"}
           </span>
-          <MdCircle className="icons circle-icon text-muted m-2" size="0.3em" />
+          <MdCircle className="icons circle-icon text-muted m-1" size="0.3em" />
           <span className="text-muted">{date}</span>
         </div>
-        <span className="note-heading">{heading}</span>
+        
       </div>
     </div>
   );

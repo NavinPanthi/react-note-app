@@ -1,4 +1,4 @@
-import { useState } from "react";
+
 
 const CreateModal = ({ open, noteText, setNoteText }) => {
   if (!open) return null;
