@@ -36,17 +36,26 @@ body {
 .dark-theme .header .header2 .vertical-line,
 .dark-theme .header,
 .dark-theme .note-heading,
-.dark-theme .header .search-icon {
+.dark-theme .header .search-icon{
   color: white;
 }
 .dark-theme .header .header2 .vertical-line {
   background-color: white;
 }
 .dark-theme .header .search-icon {
-  color: black;
+color: #23272f;
+}
+.dark-theme .delete-modal, .dark-theme  .delete-modal .btn-light{
+  background-color: #23272f;
+}
+.dark-theme .delete-modal .btn-dark{
+  background-color: white;
+  color: #23272f;
 }
 
-
+.dark-theme .note-footer .text-muted{
+  color: rgb(171, 171, 171) !important;
+}
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",
     monospace;
@@ -79,7 +88,7 @@ code {
   font-size: 75%;
 }
 .note-body.border-yellow {
-  outline: 2px solid #FFC605;
+  outline: 2px solid #ffc605;
 }
 .note {
   font-size: 80%;
@@ -124,7 +133,6 @@ code {
 }
 .name {
   font-size: 1.5em;
-
 }
 
 /* DeleteModal */
