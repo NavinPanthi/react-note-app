@@ -1,7 +1,7 @@
 
 
-const CreateModal = ({ open, noteText, setNoteText }) => {
-  if (!open) return null;
+const CreateModal = ({ isCreateModalOpen, noteText, setNoteText}) => {
+  if (!isCreateModalOpen) return null;
   const characterLimit = 5000;
   const noteTextL = noteText.length;
 

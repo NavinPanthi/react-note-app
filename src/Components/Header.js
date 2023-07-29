@@ -16,12 +16,14 @@ const Header = ({
   isCreateModalOpen,
   setIsCreateModalOpen,
   handleSearch,
-  handleDarkMode,
+  isEditModalOpen,
+  setIsEditModalOpen
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
   const [isBackButtonClicked, setisBackButtonClicked] = useState(false);
   const [noteText, setNoteText] = useState("");
+  const [darkMode, setDarkMode] = useState(false);
 
   const handleNoteAddition = () => {
     setisBackButtonClicked(false);
@@ -29,19 +31,26 @@ const Header = ({
     setNoteText("");
     setIsCreateModalOpen(false);
   };
-  if (isBackButtonClicked) {
-    handleNoteAddition(); // Call the function to add the note
+  const backButton = !isCreateModalOpen && !isEditModalOpen;
+  console.log("Backbutton disabled: ", backButton);
+ 
+  if(isBackButtonClicked){
+    if(isEditModalOpen){
+      setIsEditModalOpen(!isEditModalOpen);
+    }
+    if (isCreateModalOpen){
+      handleNoteAddition();
+    }
   }
-
+  if (darkMode) document.documentElement.classList.add("dark-theme");
+  else document.documentElement.classList.remove("dark-theme");
   return (
     <div className="header mt-4">
       <div className="my-notes d-flex flex-row justify-content-between mb-4">
         <div className="name">My Notes</div>
         <button
           className="btn theme-btn"
-          onClick={() =>
-            handleDarkMode((previousDarkMode) => !previousDarkMode)
-          }
+          onClick={() => setDarkMode(!darkMode)}
         >
           <MdDarkMode className="theme-icon icons" size="1.6em" />
         </button>
@@ -50,9 +59,8 @@ const Header = ({
         <div className="d-flex flex-row align-items-center">
           <button
             className="btn back-btn "
-            disabled={!isCreateModalOpen}
+            disabled={backButton}
             onClick={() => {
-              setIsCreateModalOpen(true);
               setisBackButtonClicked(!isBackButtonClicked);
             }}
           >
@@ -60,7 +68,7 @@ const Header = ({
           </button>
           <button
             className="btn del-btn"
-            disabled={!isAnyDivSelected}
+            disabled={!isAnyDivSelected && !isEditModalOpen}
             onClick={() => {
               setIsDeleteModalOpen(true);
               setIsAnyDivSelected(!isAnyDivSelected);
@@ -71,7 +79,7 @@ const Header = ({
           <div className="vertical-line ms-2">|</div>
           <button
             className="btn create-btn"
-            disabled={isCreateModalOpen}
+            disabled={isCreateModalOpen || isEditModalOpen}
             onClick={() => {
               setIsCreateModalOpen(true);
             }}
@@ -87,9 +95,8 @@ const Header = ({
           onClose={() => setIsDeleteModalOpen(false)}
           handleDeleteNote={handleDeleteNote}
         />
-
         <CreateModal
-          open={isCreateModalOpen}
+          isCreateModalOpen={isCreateModalOpen}
           noteText={noteText}
           setNoteText={setNoteText}
         />

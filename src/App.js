@@ -8,14 +8,14 @@ const initialLists = [
   {
     id: 0,
     heading: "ram",
-    text: "sita",
+    text: "duck",
     date: "07/34/2023",
     selected: false,
     words: 1,
   },
   {
     id: 1,
-    heading: "ram",
+    heading: "hari",
     text: "sita",
     date: "07/34/2023",
     selected: false,
@@ -23,8 +23,8 @@ const initialLists = [
   },
   {
     id: 2,
-    heading: "ram",
-    text: "sita",
+    heading: "gita",
+    text: "fuck",
     date: "07/34/2023",
     selected: false,
     words: 1,
@@ -35,8 +35,9 @@ const App = () => {
   const [isAnyDivSelected, setIsAnyDivSelected] = useState(false);
   const [isCreateModalOpen, setIsCreateModalOpen] = useState(false);
   const [searchText, setSearchText] = useState("");
-  const [darkMode, setDarkMode] = useState(false);
-
+  const [isEditModalOpen, setIsEditModalOpen] = useState(false);
+  const [editedText, setEditedText] = useState("");
+  console.log("isCreateModalOpen", isCreateModalOpen);
   useEffect(() => {
     // Check if any array element's object has 'selected' set to true
     const hasSelectedTrue = notes.some((note) => note.selected === true);
@@ -70,30 +71,55 @@ const App = () => {
       }))
     );
   };
+
+  const handleDoubleDivClick = (doubleClickedId) => {
+
+    setNotes((notes) =>
+    notes.map((note) => ({
+      ...note,
+      text: note.id === doubleClickedId ? (note.text = editedText) : note.text,
+    }))
+  );
+  }
+  // const handleDoubleDivClick = (nextNote) => {
+  //   console.log("NextNote:",nextNote.id);
+  //   setNotes((notes) =>
+  //   notes.map((note) => {
+  //     if(note.id === nextNote.id){
+  //       return nextNote;
+  //     }
+  //     else 
+  //     return note;
+  //   })
+  // );
+  // }
+  
   const deleteNote = () => {
     setNotes(notes.filter((note) => !note.selected));
   };
-  let className = "App container";
-  if (darkMode) document.documentElement.classList.add("dark-theme");
-  else document.documentElement.classList.remove("dark-theme");
+
   return (
-    <div className={className}>
+    <div className="App container">
       <Header
         handleDeleteNote={deleteNote}
         isAnyDivSelected={isAnyDivSelected}
         setIsAnyDivSelected={setIsAnyDivSelected}
         handleAddNote={addNote}
-        notes={filteredNotes}
         isCreateModalOpen={isCreateModalOpen}
         setIsCreateModalOpen={setIsCreateModalOpen}
         handleSearch={setSearchText}
-        handleDarkMode={setDarkMode}
+        isEditModalOpen = {isEditModalOpen}
+        setIsEditModalOpen = {setIsEditModalOpen}
       />
       <NotesList
         notes={filteredNotes}
-        handleAddNote={addNote}
         isCreateModalOpen={isCreateModalOpen}
         handleDivClick={handleDiv}
+        handleDoubleDivClick= {handleDoubleDivClick}
+        isEditModalOpen = {isEditModalOpen}
+        setIsEditModalOpen = {setIsEditModalOpen}
+        editedText = {editedText}
+        setEditedText={setEditedText}
       />
     </div>
   );
