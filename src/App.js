@@ -5,30 +5,7 @@ import { useEffect } from "react";
 
 let nextId = 4;
 const initialLists = [
-  {
-    id: 0,
-    heading: "ram",
-    text: "duck",
-    date: "07/34/2023",
-    selected: false,
-    words: 1,
-  },
-  {
-    id: 1,
-    heading: "hari",
-    text: "sita",
-    date: "07/34/2023",
-    selected: false,
-    words: 1,
-  },
-  {
-    id: 2,
-    heading: "gita",
-    text: "fuck",
-    date: "07/34/2023",
-    selected: false,
-    words: 1,
-  },
+  
 ];
 const App = () => {
   const [notes, setNotes] = useState(initialLists);
@@ -48,6 +25,9 @@ const App = () => {
   );
   const addNote = (noteText) => {
     const countWords = () => {
+      if(noteText===""){
+        return 0;
+      }
       const words = noteText.trim().split(/\s+/);
       return words.length;
     };
@@ -72,27 +52,27 @@ const App = () => {
     );
   };
 
-  const handleDoubleDivClick = (doubleClickedId) => {
+  // const handleDoubleDivClick = (doubleClickedId) => {
 
+  //   setNotes((notes) =>
+  //   notes.map((note) => ({
+  //     ...note,
+  //     text: note.id === doubleClickedId ? (note.text = editedText):note.text,
+  //   }))
+  // );
+  //}
+  const handleDoubleDivClick = (nextNote) => {
+    console.log("NextNote:",nextNote.id);
     setNotes((notes) =>
-    notes.map((note) => ({
-      ...note,
-      text: note.id === doubleClickedId ? (note.text = editedText) : note.text,
-    }))
+    notes.map((note) => {
+      if(note.id === nextNote.id){
+        return nextNote;
+      }
+      else 
+      return note;
+    })
   );
   }
-  // const handleDoubleDivClick = (nextNote) => {
-  //   console.log("NextNote:",nextNote.id);
-  //   setNotes((notes) =>
-  //   notes.map((note) => {
-  //     if(note.id === nextNote.id){
-  //       return nextNote;
-  //     }
-  //     else 
-  //     return note;
-  //   })
-  // );
-  // }
   
   const deleteNote = () => {
     setNotes(notes.filter((note) => !note.selected));

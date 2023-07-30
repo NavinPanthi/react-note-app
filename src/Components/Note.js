@@ -1,5 +1,6 @@
 import { useState } from "react";
 import { MdCircle } from "react-icons/md";
+import { useEffect } from "react";
 
 const Note = ({
   note,
@@ -30,6 +31,18 @@ const Note = ({
   const handleEditedId = (eId) => {
     setEditedId(eId);
   };
+  let classNames = "rounded p-2";
+  // useEffect to handle changes to isEditModalOpen
+
+  const handleChange = (e) => {
+    setEditedText(e.target.value);
+    let words = e.target.value.trim().split(/\s+/);
+    let wordsLength = words.length;
+    if(e.target.value===""){
+      wordsLength=0;
+    }
+    handleDoubleDivClick({ ...note, text: e.target.value, id: editedId, words: wordsLength });
+  };
 
   if (isEditModalOpen) {
     console.log("editedId", editedId);
@@ -41,14 +54,9 @@ const Note = ({
             rows="5"
             color="20"
             placeholder="Type to add a note..."
-            onChange={(e) => {
-              setEditedText(e.target.value);
-              setEditing(true);
-              console.log("Editing state, editedId", editing, editedId);
-              handleDoubleDivClick(editedId);
-            }}
+            onChange={handleChange}
             value={editedText}
-            className="rounded p-2 "
+            className={classNames}
           ></textarea>
         </div>
         <div className="note-footer d-flex flex-column">

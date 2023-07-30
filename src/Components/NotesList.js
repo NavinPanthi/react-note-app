@@ -24,6 +24,7 @@
 
 import Note from "./Note";
 import { useState } from "react";
+
 // import AddNote from "./AddNote";
 const NotesList = ({
   notes,
@@ -37,7 +38,7 @@ const NotesList = ({
 }) => {
   const [editedId, setEditedId] = useState(null);
   if (isCreateModalOpen) return null;
-  
+
   return (
     <div className="notes-list">
       {notes.map((note) => (
@@ -52,14 +53,13 @@ const NotesList = ({
             words={note.words}
             handleDivClick={handleDivClick}
             handleDoubleDivClick={handleDoubleDivClick}
-            editedText = {editedText}
+            editedText={editedText}
             setEditedText={setEditedText}
             isEditModalOpen={isEditModalOpen}
             setIsEditModalOpen={setIsEditModalOpen}
             editedId={editedId}
-            setEditedId = {setEditedId}
+            setEditedId={setEditedId}
           />
-
         </div>
       ))}
     </div>

@@ -17,7 +17,7 @@ const Header = ({
   setIsCreateModalOpen,
   handleSearch,
   isEditModalOpen,
-  setIsEditModalOpen
+  setIsEditModalOpen,
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -33,15 +33,15 @@ const Header = ({
   };
   const backButton = !isCreateModalOpen && !isEditModalOpen;
   console.log("Backbutton disabled: ", backButton);
- 
-  if(isBackButtonClicked){
-    if(isEditModalOpen){
-      setIsEditModalOpen(!isEditModalOpen);
-    }
-    if (isCreateModalOpen){
-      handleNoteAddition();
-    }
+
+  if (isBackButtonClicked && isEditModalOpen) {
+    setIsEditModalOpen(!isEditModalOpen);
+    setisBackButtonClicked(false);
   }
+  if (isBackButtonClicked && isCreateModalOpen) {
+    handleNoteAddition();
+  }
+
   if (darkMode) document.documentElement.classList.add("dark-theme");
   else document.documentElement.classList.remove("dark-theme");
   return (
