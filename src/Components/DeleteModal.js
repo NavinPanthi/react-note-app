@@ -1,4 +1,4 @@
-const DeleteModal = ({ open, onClose, handleDeleteNote }) => {
+const DeleteModal = ({ open, onClose, handleDeleteNote,setIsEditModalOpen  }) => {
   if (!open) return null;
   return (
     <div className="delete-modal rounded p-4 border">
@@ -12,6 +12,7 @@ const DeleteModal = ({ open, onClose, handleDeleteNote }) => {
           onClick={() => {
             handleDeleteNote();
             onClose();
+            setIsEditModalOpen(false);
           }}
         >
           Delete

@@ -5,7 +5,30 @@ import { useEffect } from "react";
 
 let nextId = 4;
 const initialLists = [
-  
+  {
+    id: 0,
+    heading: "Duck",
+    text: "A 'duck' refers to a common waterfowl bird from the family Anatidae. Ducks are known for their distinctive quacking sound, webbed feet, and ability to swim on water. They are found in various habitats, including ponds, lakes, rivers, and marshes.  They are found in various habitats, including ponds, lakes, rivers, and marshes.  They are found in various habitats, including ponds, lakes, rivers, and marshes.  They are found in various habitats, including ponds, lakes, rivers, and marshes.",
+    date: "07/34/2023",
+    selected: false,
+    words: 1,
+  },
+  {
+    id: 1,
+    heading: "Cow",
+    text: "Cows are large domesticated mammals and are one of the most common and economically important livestock animals in the world. ",
+    date: "07/34/2023",
+    selected: false,
+    words: 1,
+  },
+  {
+    id: 2,
+    heading: "Lion",
+    text: "Lions are majestic and powerful large cats belonging to the Panthera genus. They are part of the Felidae family.",
+    date: "07/34/2023",
+    selected: false,
+    words: 1,
+  },
 ];
 const App = () => {
   const [notes, setNotes] = useState(initialLists);
@@ -14,7 +37,7 @@ const App = () => {
   const [searchText, setSearchText] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editedText, setEditedText] = useState("");
-  console.log("isCreateModalOpen", isCreateModalOpen);
+
   useEffect(() => {
     // Check if any array element's object has 'selected' set to true
     const hasSelectedTrue = notes.some((note) => note.selected === true);
@@ -25,22 +48,25 @@ const App = () => {
   );
   const addNote = (noteText) => {
     const countWords = () => {
-      if(noteText===""){
+      if (noteText === "") {
         return 0;
       }
       const words = noteText.trim().split(/\s+/);
       return words.length;
     };
-    const date = new Date();
+    const currentTime = new Date();
+    const currentHour = currentTime.getHours();
+    const currentMinute = currentTime.getMinutes();
+    const current = currentHour + ":" + currentMinute;
     const newNotes = {
       id: nextId++,
       heading: "heading",
       text: noteText,
-      date: date.toLocaleDateString(),
-      selected: false,
+      date: current,
+      selected: true,
       words: countWords(),
     };
-    setNotes([...notes, newNotes]);
+    setNotes([newNotes, ...notes]);
   };
   const handleDiv = (id) => {
     setNotes((notes) =>
@@ -51,29 +77,20 @@ const App = () => {
       }))
     );
   };
-
-  // const handleDoubleDivClick = (doubleClickedId) => {
-
-  //   setNotes((notes) =>
-  //   notes.map((note) => ({
-  //     ...note,
-  //     text: note.id === doubleClickedId ? (note.text = editedText):note.text,
-  //   }))
-  // );
-  //}
-  const handleDoubleDivClick = (nextNote) => {
-    console.log("NextNote:",nextNote.id);
+  const handleBorder = () => {
     setNotes((notes) =>
-    notes.map((note) => {
-      if(note.id === nextNote.id){
-        return nextNote;
-      }
-      else 
-      return note;
-    })
-  );
-  }
-  
+      notes.map((note) => ({
+        ...note,
+        selected: false,
+      }))
+    );
+  };
+
+  const handleDoubleDivClick = (nextNote) => {
+    const updatedNotes = notes.filter((note) => note.id !== nextNote.id);
+    setNotes([{ ...nextNote, selected: true }, ...updatedNotes]);
+  };
+
   const deleteNote = () => {
     setNotes(notes.filter((note) => !note.selected));
   };
@@ -88,18 +105,21 @@ const App = () => {
         isCreateModalOpen={isCreateModalOpen}
         setIsCreateModalOpen={setIsCreateModalOpen}
         handleSearch={setSearchText}
-        isEditModalOpen = {isEditModalOpen}
-        setIsEditModalOpen = {setIsEditModalOpen}
+        isEditModalOpen={isEditModalOpen}
+        setIsEditModalOpen={setIsEditModalOpen}
+        handleBorder={handleBorder}
       />
       <NotesList
         notes={filteredNotes}
         isCreateModalOpen={isCreateModalOpen}
         handleDivClick={handleDiv}
-        handleDoubleDivClick= {handleDoubleDivClick}
-        isEditModalOpen = {isEditModalOpen}
-        setIsEditModalOpen = {setIsEditModalOpen}
-        editedText = {editedText}
+        handleDoubleDivClick={handleDoubleDivClick}
+        isEditModalOpen={isEditModalOpen}
+        setIsEditModalOpen={setIsEditModalOpen}
+        editedText={editedText}
         setEditedText={setEditedText}
+        setIsAnyDivSelected={setIsAnyDivSelected}
+        handleBorder={handleBorder}
       />
     </div>
   );

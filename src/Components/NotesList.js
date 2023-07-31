@@ -35,6 +35,8 @@ const NotesList = ({
   setEditedText,
   isEditModalOpen,
   setIsEditModalOpen,
+  setIsAnyDivSelected,
+  handleBorder,
 }) => {
   const [editedId, setEditedId] = useState(null);
   if (isCreateModalOpen) return null;
@@ -45,12 +47,6 @@ const NotesList = ({
         <div key={note.id}>
           <Note
             note={note}
-            id={note.id}
-            heading={note.heading}
-            text={note.text}
-            date={note.date}
-            selected={note.selected}
-            words={note.words}
             handleDivClick={handleDivClick}
             handleDoubleDivClick={handleDoubleDivClick}
             editedText={editedText}
@@ -59,6 +55,8 @@ const NotesList = ({
             setIsEditModalOpen={setIsEditModalOpen}
             editedId={editedId}
             setEditedId={setEditedId}
+            setIsAnyDivSelected = {setIsAnyDivSelected}
+            handleBorder = {handleBorder}
           />
         </div>
       ))}

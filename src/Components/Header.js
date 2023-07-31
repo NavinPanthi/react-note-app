@@ -1,11 +1,13 @@
-import { MdDeleteForever } from "react-icons/md";
-import { MdEditCalendar } from "react-icons/md";
 import DeleteModal from "./DeleteModal";
 import CreateModal from "./CreateModal";
-
+import {
+  MdLightMode,
+  MdDeleteForever,
+  MdDarkMode,
+  MdArrowBackIos,
+  MdEditCalendar,
+} from "react-icons/md";
 import { useState } from "react";
-import { MdDarkMode } from "react-icons/md";
-import { MdArrowBackIos } from "react-icons/md";
 import Search from "./Search";
 
 const Header = ({
@@ -18,6 +20,7 @@ const Header = ({
   handleSearch,
   isEditModalOpen,
   setIsEditModalOpen,
+  handleBorder,
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -32,7 +35,6 @@ const Header = ({
     setIsCreateModalOpen(false);
   };
   const backButton = !isCreateModalOpen && !isEditModalOpen;
-  console.log("Backbutton disabled: ", backButton);
 
   if (isBackButtonClicked && isEditModalOpen) {
     setIsEditModalOpen(!isEditModalOpen);
@@ -41,18 +43,26 @@ const Header = ({
   if (isBackButtonClicked && isCreateModalOpen) {
     handleNoteAddition();
   }
-
-  if (darkMode) document.documentElement.classList.add("dark-theme");
-  else document.documentElement.classList.remove("dark-theme");
+  let html = document.documentElement;
+  if (isDeleteModalOpen) html.classList.add("less-opacity");
+  else html.classList.remove("less-opacity");
+  if (darkMode) html.classList.add("dark-theme");
+  else html.classList.remove("dark-theme");
   return (
     <div className="header mt-4">
       <div className="my-notes d-flex flex-row justify-content-between mb-4">
         <div className="name">My Notes</div>
         <button
           className="btn theme-btn"
-          onClick={() => setDarkMode(!darkMode)}
+          onClick={() => {
+            setDarkMode(!darkMode);
+          }}
         >
-          <MdDarkMode className="theme-icon icons" size="1.6em" />
+          {darkMode ? (
+            <MdLightMode className="theme-icon icons" size="1.6em" />
+          ) : (
+            <MdDarkMode className="theme-icon icons" size="1.6em" />
+          )}
         </button>
       </div>
       <div className=" mb-4 header2 d-flex flex-nowrap flex-row justify-content-between align-items-center">
@@ -69,9 +79,13 @@ const Header = ({
           <button
             className="btn del-btn"
             disabled={!isAnyDivSelected && !isEditModalOpen}
-            onClick={() => {
+            onClick={(e) => {
+              e.stopPropagation();
               setIsDeleteModalOpen(true);
               setIsAnyDivSelected(!isAnyDivSelected);
+              // if (isEditModalOpen) {
+              //   setIsEditModalOpen(false);
+              // }
             }}
           >
             <MdDeleteForever className="delete-icon icons" size="1.6em" />
@@ -82,6 +96,8 @@ const Header = ({
             disabled={isCreateModalOpen || isEditModalOpen}
             onClick={() => {
               setIsCreateModalOpen(true);
+              setIsAnyDivSelected(false);
+              handleBorder();
             }}
           >
             <MdEditCalendar className="icons create-icon ms-2" size="1.6em" />
@@ -94,6 +110,7 @@ const Header = ({
           open={isDeleteModalOpen}
           onClose={() => setIsDeleteModalOpen(false)}
           handleDeleteNote={handleDeleteNote}
+          setIsEditModalOpen={setIsEditModalOpen}
         />
         <CreateModal
           isCreateModalOpen={isCreateModalOpen}

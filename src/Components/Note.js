@@ -1,15 +1,9 @@
-import { useState } from "react";
 import { MdCircle } from "react-icons/md";
 import { useEffect } from "react";
-
+import { useRef } from "react";
+import { useState } from "react";
 const Note = ({
   note,
-  id,
-  heading,
-  text,
-  date,
-  selected,
-  words,
   handleDivClick,
   handleDoubleDivClick,
   editedText,
@@ -18,35 +12,64 @@ const Note = ({
   setIsEditModalOpen,
   editedId,
   setEditedId,
+  setIsAnyDivSelected,
+  handleBorder,
 }) => {
-  const [editing, setEditing] = useState(false);
+  // const divRef = useRef(null);
 
+  // function handleDocumentClick(event) {
+  //   if (divRef.current && !divRef.current.contains(event.target)) {
+  //     handleBorder();
+  //     return;
+  //   }
+  // }
+
+  // useEffect(() => {
+  // const noteList = document.querySelector(".notes-list");
+  // document.body.addEventListener("mousedown", handleClickOutside);
+  // return () => {
+  //   document.body.removeEventListener("mousedown", handleClickOutside);
+  // };
+  // noteList.addEventListener("mousedown", handleClickOutside);
+  // return () => {
+  //   noteList.removeEventListener("mousedown", handleClickOutside);
+  // };
+  // });
+  // function handleClickOutside(event) {
+  //   if (divRef.current && !divRef.current.contains(event.target)) {
+  //     handleBorder();
+  //   }
+  // }
   let className = "note-body rounded p-2 ";
-  if (selected) {
+  const currentTime = new Date();
+  const currentHour = currentTime.getHours();
+  const currentMinute = currentTime.getMinutes();
+  const current = currentHour + ":" + currentMinute;
+  
+  if (note.selected) {
     className += " border-yellow";
   }
-
-  const characterLimit = 5000;
-  const noteTextL = text.length;
   const handleEditedId = (eId) => {
     setEditedId(eId);
   };
-  let classNames = "rounded p-2";
-  // useEffect to handle changes to isEditModalOpen
 
   const handleChange = (e) => {
     setEditedText(e.target.value);
     let words = e.target.value.trim().split(/\s+/);
     let wordsLength = words.length;
-    if(e.target.value===""){
-      wordsLength=0;
+    if (e.target.value === "") {
+      wordsLength = 0;
     }
-    handleDoubleDivClick({ ...note, text: e.target.value, id: editedId, words: wordsLength });
+    handleDoubleDivClick({
+      ...note,
+      text: e.target.value,
+      id: editedId,
+      words: wordsLength,
+      date: current,
+    });
   };
 
   if (isEditModalOpen) {
-    console.log("editedId", editedId);
-    console.log("isEditModalOpen------------------------", isEditModalOpen);
     return (
       <div className="note new container rounded create-modal p-2 m-1 pe-3">
         <div className=" whole rounded ">
@@ -56,31 +79,30 @@ const Note = ({
             placeholder="Type to add a note..."
             onChange={handleChange}
             value={editedText}
-            className={classNames}
+            className="rounded p-2"
           ></textarea>
         </div>
         <div className="note-footer d-flex flex-column">
-          <span className="text-muted">
-            {characterLimit - noteTextL} remaining
-          </span>
+          <span className="text-muted"></span>
         </div>
       </div>
     );
   } else {
     return (
       <div
+        // ref={divRef}
         className="note"
-        onDoubleClick={() => {
-          console.log("doubleClicked", id);
-          handleEditedId(id);
-          setEditedText(text);
+        onDoubleClick={(e) => {
+          handleEditedId(note.id);
+          setEditedText(note.text);
           setIsEditModalOpen(true);
         }}
-        onClick={() => {
-          handleDivClick(id);
+        onClick={(e) => {
+          e.preventDefault();
+          handleDivClick(note.id);
         }}
       >
-        <div className={className}>
+        <div className={className} tabIndex={0}>
           <span>{note.text}</span>
         </div>
         <div className="note-footer d-flex flex-column">

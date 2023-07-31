@@ -22,38 +22,60 @@ body {
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   background-color: #f0f2f5;
+
   position: relative;
   max-height: 100vh;
+  backdrop-filter: blur(8px);
 }
 /* Dark theme */
 .dark-theme {
   background-color: #23272f;
 }
+
 .dark-theme body {
   background-color: #23272f;
 }
+/* .less-opacity body {
+  opacity: 0.6;
+}
+.less-opacity body .container .header .delete-modal {
+  opacity: 1 !important;
+}  */
 .dark-theme .btn,
 .dark-theme .header .header2 .vertical-line,
 .dark-theme .header,
 .dark-theme .note-heading,
-.dark-theme .header .search-icon{
+.dark-theme .header .search-icon {
   color: white;
 }
 .dark-theme .header .header2 .vertical-line {
   background-color: white;
 }
-.dark-theme .header .search-icon {
-color: #23272f;
+
+.dark-theme .search .input-lg,
+.dark-theme .search-icon,
+.dark-theme .input-group {
+  background-color: #373e4a !important;
+  color: white;
 }
-.dark-theme .delete-modal, .dark-theme  .delete-modal .btn-light{
+.dark-theme .delete-modal,
+.dark-theme .delete-modal .btn-light {
   background-color: #23272f;
 }
-.dark-theme .delete-modal .btn-dark{
+.dark-theme .delete-modal .btn-dark {
   background-color: white;
   color: #23272f;
 }
+.dark-theme .create-modal .whole .rounded {
+  background-color: #373e4a;
+  color: white;
+}
+.dark-theme .note-body {
+  background-color: #373e4a;
+  color: white;
+}
 
-.dark-theme .note-footer .text-muted{
+.dark-theme .note-footer .text-muted {
   color: rgb(171, 171, 171) !important;
 }
 code {
@@ -76,6 +98,7 @@ code {
   overflow-y: hidden;
   white-space: pre-wrap;
   max-width: 100%;
+  overflow-x: hidden;
 }
 
 .note-heading {
@@ -90,8 +113,16 @@ code {
 .note-body.border-yellow {
   outline: 2px solid #ffc605;
 }
+/* .note-body:focus{
+  outline: 2px solid #ffc605;
+} */
 .note {
   font-size: 80%;
+  text-align: justify;
+}
+
+html:focus {
+  background-color: #005bb3;
 }
 
 /* HEADER */
@@ -187,4 +218,6 @@ code {
 .search input {
   font-size: 80%;
 }
-
+.b-textarea{
+  font-size: 150% !important;
+}

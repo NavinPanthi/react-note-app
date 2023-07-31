@@ -1,14 +1,8 @@
-
-
-const CreateModal = ({ isCreateModalOpen, noteText, setNoteText}) => {
+const CreateModal = ({ isCreateModalOpen, noteText, setNoteText }) => {
   if (!isCreateModalOpen) return null;
-  const characterLimit = 5000;
-  const noteTextL = noteText.length;
 
   const handleChange = (e) => {
-    if (characterLimit - e.target.value.length >= 0) {
-      setNoteText(e.target.value);
-    }
+    setNoteText(e.target.value);
   };
 
   return (
@@ -24,9 +18,7 @@ const CreateModal = ({ isCreateModalOpen, noteText, setNoteText}) => {
         ></textarea>
       </div>
       <div className="note-footer d-flex flex-column">
-        <span className="text-muted">
-          {characterLimit - noteTextL} remaining
-        </span>
+        <span className="text-muted"></span>
       </div>
     </div>
   );
