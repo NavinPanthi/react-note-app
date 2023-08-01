@@ -46,13 +46,21 @@ const App = () => {
   const filteredNotes = notes.filter((note) =>
     note.text.toLowerCase().includes(searchText)
   );
-  const addNote = (noteText) => {
+  const addNote = ({ noteText, headingText }) => {
     const countWords = () => {
-      if (noteText === "") {
+      if (noteText.length === 0 && headingText.length === 0) {
         return 0;
       }
-      const words = noteText.trim().split(/\s+/);
-      return words.length;
+      const textWords = noteText.trim().split(/\s+/);
+      const headingWords = headingText.trim().split(/\s+/);
+      if (noteText === "") {
+        textWords.length = 0;
+      }
+      if (headingWords === "") {
+        headingWords.length = 0;
+      }
+      const totalWords = textWords.length + headingWords.length;
+      return totalWords;
     };
     const currentTime = new Date();
     const currentHour = currentTime.getHours();
@@ -60,7 +68,7 @@ const App = () => {
     const current = currentHour + ":" + currentMinute;
     const newNotes = {
       id: nextId++,
-      heading: "heading",
+      heading: headingText,
       text: noteText,
       date: current,
       selected: true,
@@ -94,7 +102,11 @@ const App = () => {
   const deleteNote = () => {
     setNotes(notes.filter((note) => !note.selected));
   };
-
+  if (isCreateModalOpen) {
+    document.documentElement.classList.add("cm");
+  } else {
+    document.documentElement.classList.remove("cm");
+  }
   return (
     <div className="App container">
       <Header

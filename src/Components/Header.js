@@ -26,12 +26,14 @@ const Header = ({
 
   const [isBackButtonClicked, setisBackButtonClicked] = useState(false);
   const [noteText, setNoteText] = useState("");
+  const [headingText, setHeadingText] = useState("");
   const [darkMode, setDarkMode] = useState(false);
 
   const handleNoteAddition = () => {
     setisBackButtonClicked(false);
-    handleAddNote(noteText);
+    handleAddNote({noteText, headingText});
     setNoteText("");
+    setHeadingText("");
     setIsCreateModalOpen(false);
   };
   const backButton = !isCreateModalOpen && !isEditModalOpen;
@@ -115,6 +117,8 @@ const Header = ({
         <CreateModal
           isCreateModalOpen={isCreateModalOpen}
           noteText={noteText}
+          headingText={headingText}
+          setHeadingText={setHeadingText}
           setNoteText={setNoteText}
         />
       </div>

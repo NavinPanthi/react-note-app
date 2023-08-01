@@ -45,7 +45,7 @@ const Note = ({
   const currentHour = currentTime.getHours();
   const currentMinute = currentTime.getMinutes();
   const current = currentHour + ":" + currentMinute;
-  
+
   if (note.selected) {
     className += " border-yellow";
   }
@@ -103,9 +103,10 @@ const Note = ({
         }}
       >
         <div className={className} tabIndex={0}>
-          <span>{note.text}</span>
+          <div className="note-top-heading">{note.heading}</div>
+          <div className="note-text">{note.text}</div>
         </div>
-        <div className="note-footer d-flex flex-column">
+        <div className="note-footer d-flex flex-column mt-1">
           <span className="note-heading">{note.heading}</span>
           <div className="d-flex flex-row justify-content-center align-items-center">
             <span className="text-muted">
