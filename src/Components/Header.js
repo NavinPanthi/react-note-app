@@ -9,6 +9,7 @@ import {
 } from "react-icons/md";
 import { useState } from "react";
 import Search from "./Search";
+import { useEffect } from "react";
 
 const Header = ({
   handleDeleteNote,
@@ -21,6 +22,7 @@ const Header = ({
   isEditModalOpen,
   setIsEditModalOpen,
   handleBorder,
+  deleteNotesWithZeroWords,
 }) => {
   const [isDeleteModalOpen, setIsDeleteModalOpen] = useState(false);
 
@@ -28,14 +30,25 @@ const Header = ({
   const [noteText, setNoteText] = useState("");
   const [headingText, setHeadingText] = useState("");
   const [darkMode, setDarkMode] = useState(false);
+  // useEffect(() => {
+  //   setTimeout(() => {
+  //     deleteNotesWithZeroWords();
+  //   }, 2000); // 1000 milliseconds = 1 second
+  // });
 
+  const timed = () => {
+    setTimeout(() => {
+      deleteNotesWithZeroWords(); // Call the second function after a delay of 5 seconds (5000 milliseconds)
+    }, 500);
+  };
   const handleNoteAddition = () => {
     setisBackButtonClicked(false);
-    handleAddNote({noteText, headingText});
+    handleAddNote({ noteText, headingText });
     setNoteText("");
     setHeadingText("");
     setIsCreateModalOpen(false);
   };
+
   const backButton = !isCreateModalOpen && !isEditModalOpen;
 
   if (isBackButtonClicked && isEditModalOpen) {
@@ -74,6 +87,7 @@ const Header = ({
             disabled={backButton}
             onClick={() => {
               setisBackButtonClicked(!isBackButtonClicked);
+              timed();
             }}
           >
             <MdArrowBackIos className="icons me-2 back-icon" size="1.5em" />

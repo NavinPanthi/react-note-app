@@ -4,32 +4,7 @@ import { useState } from "react";
 import { useEffect } from "react";
 
 let nextId = 4;
-const initialLists = [
-  {
-    id: 0,
-    heading: "Duck",
-    text: "A 'duck' refers to a common waterfowl bird from the family Anatidae. Ducks are known for their distinctive quacking sound, webbed feet, and ability to swim on water. They are found in various habitats, including ponds, lakes, rivers, and marshes.  They are found in various habitats, including ponds, lakes, rivers, and marshes.  They are found in various habitats, including ponds, lakes, rivers, and marshes.  They are found in various habitats, including ponds, lakes, rivers, and marshes.",
-    date: "07/34/2023",
-    selected: false,
-    words: 1,
-  },
-  {
-    id: 1,
-    heading: "Cow",
-    text: "Cows are large domesticated mammals and are one of the most common and economically important livestock animals in the world. ",
-    date: "07/34/2023",
-    selected: false,
-    words: 1,
-  },
-  {
-    id: 2,
-    heading: "Lion",
-    text: "Lions are majestic and powerful large cats belonging to the Panthera genus. They are part of the Felidae family.",
-    date: "07/34/2023",
-    selected: false,
-    words: 1,
-  },
-];
+const initialLists = [];
 const App = () => {
   const [notes, setNotes] = useState(initialLists);
   const [isAnyDivSelected, setIsAnyDivSelected] = useState(false);
@@ -37,15 +12,34 @@ const App = () => {
   const [searchText, setSearchText] = useState("");
   const [isEditModalOpen, setIsEditModalOpen] = useState(false);
   const [editedText, setEditedText] = useState("");
+  const [editedHeading, setEditedHeading] = useState("");
 
   useEffect(() => {
     // Check if any array element's object has 'selected' set to true
     const hasSelectedTrue = notes.some((note) => note.selected === true);
     setIsAnyDivSelected(hasSelectedTrue);
   }, [notes]);
-  const filteredNotes = notes.filter((note) =>
-    note.text.toLowerCase().includes(searchText)
-  );
+  const deleteNotesWithZeroWords = () => {
+    setNotes((prevNotes) =>
+      prevNotes.filter((note) => {
+        if (note.text === "" && note.heading === "") {
+          // If the condition is false, include the note in the result
+          return false;
+        } else {
+          // If the condition is true, filter out the note (exclude from the result)
+          return true;
+        }
+      })
+    );
+  };
+
+  const filteredNotes = notes.filter((note) => {
+    return (
+      note.text.toLowerCase().includes(searchText.toLowerCase()) ||
+      note.heading.toLowerCase().includes(searchText.toLowerCase())
+    );
+  });
+
   const addNote = ({ noteText, headingText }) => {
     const countWords = () => {
       if (noteText.length === 0 && headingText.length === 0) {
@@ -120,6 +114,7 @@ const App = () => {
         isEditModalOpen={isEditModalOpen}
         setIsEditModalOpen={setIsEditModalOpen}
         handleBorder={handleBorder}
+        deleteNotesWithZeroWords={deleteNotesWithZeroWords}
       />
       <NotesList
         notes={filteredNotes}
@@ -132,6 +127,8 @@ const App = () => {
         setEditedText={setEditedText}
         setIsAnyDivSelected={setIsAnyDivSelected}
         handleBorder={handleBorder}
+        editedHeading={editedHeading}
+        setEditedHeading={setEditedHeading}
       />
     </div>
   );

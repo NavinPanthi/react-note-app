@@ -37,6 +37,8 @@ const NotesList = ({
   setIsEditModalOpen,
   setIsAnyDivSelected,
   handleBorder,
+  editedHeading,
+  setEditedHeading
 }) => {
   const [editedId, setEditedId] = useState(null);
   if (isCreateModalOpen) return null;
@@ -57,6 +59,8 @@ const NotesList = ({
             setEditedId={setEditedId}
             setIsAnyDivSelected = {setIsAnyDivSelected}
             handleBorder = {handleBorder}
+            editedHeading = {editedHeading}
+            setEditedHeading = {setEditedHeading}
           />
         </div>
       ))}

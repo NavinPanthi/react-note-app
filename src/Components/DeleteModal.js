@@ -1,4 +1,20 @@
+import { useRef, useEffect } from "react";
 const DeleteModal = ({ open, onClose, handleDeleteNote,setIsEditModalOpen  }) => {
+  const deleteButtonRef = useRef(null);
+
+  useEffect(() => {
+    const handleKeyPress = (event) => {
+      if (event.key === "Enter" && deleteButtonRef.current) {
+        deleteButtonRef.current.click();
+      }
+    };
+
+    document.addEventListener("keydown", handleKeyPress);
+
+    return () => {
+      document.removeEventListener("keydown", handleKeyPress);
+    };
+  }, []);
   if (!open) return null;
   return (
     <div className="delete-modal rounded p-4 border">
@@ -8,6 +24,7 @@ const DeleteModal = ({ open, onClose, handleDeleteNote,setIsEditModalOpen  }) =>
           Cancel
         </button>
         <button
+          ref={deleteButtonRef}
           className="btn-dark btn ms-1"
           onClick={() => {
             handleDeleteNote();

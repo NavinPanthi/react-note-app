@@ -14,6 +14,7 @@ const CreateModal = ({
   const handleInput = (e) => {
     setHeadingText(e.target.value);
   };
+
   const handleInputKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault(); // Prevent the default behavior of adding a newline in the input field
@@ -37,7 +38,6 @@ const CreateModal = ({
       input.focus(); // Move the focus to the input field
     }
   };
-
 
   return (
     <div className="note new container rounded create-modal p-2 m-1 pe-3">
@@ -67,5 +67,3 @@ const CreateModal = ({
   );
 };
 export default CreateModal;
-
-
