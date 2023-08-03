@@ -270,3 +270,6 @@ cm body {
   font-size: var(--text-font);
   font-weight: bolder;
 }
+#note-textarea{
+  font-size: 120% !important;
+}
