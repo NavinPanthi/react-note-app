@@ -118,10 +118,7 @@ code {
 .text-muted {
   font-size: 70%;
 }
-/* .note-body.border-yellow {
-  outline: 2px solid #ffc605;
-} */
-.note-body:focus {
+.note-body.border-yellow {
   outline: 2px solid #ffc605;
 }
 .note {
@@ -241,6 +238,22 @@ html:focus {
   max-height: 100%;
   min-height: 93.3%;
 }
+@media screen and (width<=360px) {
+  .note.new.create-modal textarea {
+    min-height: 95.3%;
+  }
+}
+@media screen and (width<=512px) {
+  .note.new.create-modal textarea {
+    min-height: 95.7%;
+  }
+}
+
+@media screen and (width<=800px) {
+  .note.new.create-modal textarea {
+    min-height: 97.1%;
+  }
+}
 
 .note-footer .btn {
   box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px,
@@ -262,14 +275,11 @@ html:focus {
   overflow: hidden; /* Hide any content that exceeds the height */
   word-wrap: break-word; /* Wrap long words onto the next line */
 }
-cm body {
-  height: 100vh;
-  overflow-y: hidden;
-}
+
 .note-top-heading {
   font-size: var(--text-font);
   font-weight: bolder;
 }
-#note-textarea{
+#note-textarea {
   font-size: 120% !important;
 }

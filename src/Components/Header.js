@@ -9,7 +9,6 @@ import {
 } from "react-icons/md";
 import { useState } from "react";
 import Search from "./Search";
-import { useEffect } from "react";
 
 const Header = ({
   handleDeleteNote,
@@ -30,19 +29,16 @@ const Header = ({
   const [noteText, setNoteText] = useState("");
   const [headingText, setHeadingText] = useState("");
   const [darkMode, setDarkMode] = useState(false);
-  // useEffect(() => {
-  //   setTimeout(() => {
-  //     deleteNotesWithZeroWords();
-  //   }, 2000); // 1000 milliseconds = 1 second
-  // });
 
   const timed = () => {
     setTimeout(() => {
       deleteNotesWithZeroWords(); // Call the second function after a delay of 5 seconds (5000 milliseconds)
     }, 500);
   };
+  // after back button is clicked, this funtion is called.
   const handleNoteAddition = () => {
     setisBackButtonClicked(false);
+
     handleAddNote({ noteText, headingText });
     setNoteText("");
     setHeadingText("");
@@ -58,9 +54,10 @@ const Header = ({
   if (isBackButtonClicked && isCreateModalOpen) {
     handleNoteAddition();
   }
+  //For dark mode.
   let html = document.documentElement;
-  if (isDeleteModalOpen) html.classList.add("less-opacity");
-  else html.classList.remove("less-opacity");
+  // if (isDeleteModalOpen) html.classList.add("less-opacity");
+  // else html.classList.remove("less-opacity");
   if (darkMode) html.classList.add("dark-theme");
   else html.classList.remove("dark-theme");
   return (

@@ -1,7 +1,12 @@
 import { useRef, useEffect } from "react";
-const DeleteModal = ({ open, onClose, handleDeleteNote,setIsEditModalOpen  }) => {
+const DeleteModal = ({
+  open,
+  onClose,
+  handleDeleteNote,
+  setIsEditModalOpen,
+}) => {
   const deleteButtonRef = useRef(null);
-
+  // is user press enter on keyboard, delete button which is shown on deleteMOdal is auto clicked.
   useEffect(() => {
     const handleKeyPress = (event) => {
       if (event.key === "Enter" && deleteButtonRef.current) {

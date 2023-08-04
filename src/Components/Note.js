@@ -2,6 +2,7 @@ import { MdCircle } from "react-icons/md";
 import { useEffect } from "react";
 import { useRef } from "react";
 import { useState } from "react";
+
 const Note = ({
   note,
   handleDivClick,
@@ -13,55 +14,45 @@ const Note = ({
   editedId,
   setEditedId,
   setIsAnyDivSelected,
-  handleBorder,
   editedHeading,
   setEditedHeading,
 }) => {
-  // const divRef = useRef(null);
+  const headingInputRef = useRef(null);
+  const noteTextareaRef = useRef(null);
 
-  // function handleDocumentClick(event) {
-  //   if (divRef.current && !divRef.current.contains(event.target)) {
-  //     handleBorder();
-  //     return;
-  //   }
-  // }
+  // to set cursor in the last of text when user want to edit any notes.
+  useEffect(() => {
+    if (isEditModalOpen) {
+      noteTextareaRef.current.setSelectionRange(
+        noteTextareaRef.current.value.length,
+        noteTextareaRef.current.value.length
+      );
+      noteTextareaRef.current.focus();
+    }
+  }, [isEditModalOpen]);
 
-  // useEffect(() => {
-  // const noteList = document.querySelector(".notes-list");
-  // document.body.addEventListener("mousedown", handleClickOutside);
-  // return () => {
-  //   document.body.removeEventListener("mousedown", handleClickOutside);
-  // };
-  // noteList.addEventListener("mousedown", handleClickOutside);
-  // return () => {
-  //   noteList.removeEventListener("mousedown", handleClickOutside);
-  // };
-  // });
-  // function handleClickOutside(event) {
-  //   if (divRef.current && !divRef.current.contains(event.target)) {
-  //     handleBorder();
-  //   }
-  // }
   let className = "note-body rounded p-2 ";
+  if (note.selected) {
+    className += " border-yellow";
+  }
+  //get current time
   const currentTime = new Date();
   const currentHour = currentTime.getHours();
   const currentMinute = currentTime.getMinutes();
   const current = currentHour + ":" + currentMinute;
 
-  if (note.selected) {
-    className += " border-yellow";
-  }
+  //for referencing the noteid from note div to editmodal.
   const handleEditedId = (eId) => {
     setEditedId(eId);
   };
-
+// Following three functions are for user experiences handling the input heading and text area.
   const handleTextArea = () => {
     const input = document.getElementById("input-h");
-
     if (editedHeading === "") {
       input.focus();
     }
   };
+
   const handleKeyDown = (e) => {
     if (e.keyCode === 46 && editedText.length === 0) {
       const input = document.getElementById("input-h");
@@ -87,6 +78,7 @@ const Note = ({
     }
   };
   let totalLength;
+  // handling the change on text area.
   const handleChange = (e) => {
     setEditedText(e.target.value);
     let words = e.target.value.trim().split(/\s+/);
@@ -111,6 +103,7 @@ const Note = ({
       date: current,
     });
   };
+  // handling the change on heading area.
   const handleInput = (e) => {
     setEditedHeading(e.target.value);
     let heading = e.target.value.trim().split(/\s+/);
@@ -121,7 +114,6 @@ const Note = ({
       wordsLength = 0;
     }
 
-  
     if (e.target.value === "") {
       headingLength = 0;
     }
@@ -141,6 +133,7 @@ const Note = ({
       <div className="note new container rounded create-modal p-2 m-1 pe-3">
         <div className=" whole rounded ">
           <input
+            ref={headingInputRef}
             className="border-0 input-lg rounded ps-2 pt-2 h-input pe-2 pb-0 "
             onKeyDown={handleInputKeyDown}
             id="input-h"
@@ -148,6 +141,7 @@ const Note = ({
             value={editedHeading}
           />
           <textarea
+            ref={noteTextareaRef}
             id="note-textarea"
             rows="5"
             onKeyDown={handleKeyDown}
@@ -157,7 +151,6 @@ const Note = ({
             // disabled={isDisabled}
             className="rounded  p-2"
             onClick={handleTextArea}
-            
           ></textarea>
         </div>
         <div className="note-footer d-flex flex-column">
@@ -186,7 +179,13 @@ const Note = ({
           <div className="note-text">{note.text}</div>
         </div>
         <div className="note-footer d-flex flex-column mt-1">
-          <span className="note-heading px-2">{note.heading}</span>
+          <span className="note-heading px-2">
+            {note.heading === ""
+              ? note.text === ""
+                ? "New note"
+                : note.text
+              : note.heading}
+          </span>
           <div className="d-flex flex-row justify-content-center align-items-center">
             <span className="text-muted">
               {note.words} {note.words > 1 ? "words" : "word"}

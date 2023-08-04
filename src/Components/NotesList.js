@@ -25,6 +25,7 @@
 import Note from "./Note";
 import { useState } from "react";
 
+
 // import AddNote from "./AddNote";
 const NotesList = ({
   notes,
@@ -36,7 +37,6 @@ const NotesList = ({
   isEditModalOpen,
   setIsEditModalOpen,
   setIsAnyDivSelected,
-  handleBorder,
   editedHeading,
   setEditedHeading
 }) => {
@@ -58,7 +58,7 @@ const NotesList = ({
             editedId={editedId}
             setEditedId={setEditedId}
             setIsAnyDivSelected = {setIsAnyDivSelected}
-            handleBorder = {handleBorder}
+
             editedHeading = {editedHeading}
             setEditedHeading = {setEditedHeading}
           />

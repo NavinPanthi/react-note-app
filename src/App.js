@@ -19,6 +19,7 @@ const App = () => {
     const hasSelectedTrue = notes.some((note) => note.selected === true);
     setIsAnyDivSelected(hasSelectedTrue);
   }, [notes]);
+  //For user experience, a newly created note with 0 words is saved for 0.5 sec and get deleted automatically. 
   const deleteNotesWithZeroWords = () => {
     setNotes((prevNotes) =>
       prevNotes.filter((note) => {
@@ -32,7 +33,7 @@ const App = () => {
       })
     );
   };
-
+  // Only filtered notes are passed to notes as props.
   const filteredNotes = notes.filter((note) => {
     return (
       note.text.toLowerCase().includes(searchText.toLowerCase()) ||
@@ -40,6 +41,7 @@ const App = () => {
     );
   });
 
+  //Adding note
   const addNote = ({ noteText, headingText }) => {
     const countWords = () => {
       if (noteText.length === 0 && headingText.length === 0) {
@@ -70,6 +72,7 @@ const App = () => {
     };
     setNotes([newNotes, ...notes]);
   };
+  // the note div on which user press clicked get selected true and finally setAnyDivSelected get true and yellow border appears.
   const handleDiv = (id) => {
     setNotes((notes) =>
       notes.map((note) => ({
@@ -79,6 +82,8 @@ const App = () => {
       }))
     );
   };
+  //if any div is selected, and you want to click on create new note button, then previously slected note get unselected,
+  // and new note get selected.
   const handleBorder = () => {
     setNotes((notes) =>
       notes.map((note) => ({
@@ -87,12 +92,12 @@ const App = () => {
       }))
     );
   };
-
+  // On double clicking note, note is set to editing, and when edited note is saved it is displayed to first position of notes-list.
   const handleDoubleDivClick = (nextNote) => {
     const updatedNotes = notes.filter((note) => note.id !== nextNote.id);
     setNotes([{ ...nextNote, selected: true }, ...updatedNotes]);
   };
-
+  // user click on a note and after if they press delete button, selected note will get deleted.
   const deleteNote = () => {
     setNotes(notes.filter((note) => !note.selected));
   };
@@ -126,7 +131,6 @@ const App = () => {
         editedText={editedText}
         setEditedText={setEditedText}
         setIsAnyDivSelected={setIsAnyDivSelected}
-        handleBorder={handleBorder}
         editedHeading={editedHeading}
         setEditedHeading={setEditedHeading}
       />

@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect, useRef } from "react";
 const CreateModal = ({
   isCreateModalOpen,
   noteText,
@@ -6,6 +6,14 @@ const CreateModal = ({
   headingText,
   setHeadingText,
 }) => {
+  const headingInputRef = useRef(null);
+
+  // useEffect hook to set the cursor in heading area on createModal open
+  useEffect(() => {
+    if (isCreateModalOpen) {
+      headingInputRef.current.focus(); // Focus on the heading input
+    }
+  }, [isCreateModalOpen, headingText]);
   if (!isCreateModalOpen) return null;
 
   const handleChange = (e) => {
@@ -14,7 +22,7 @@ const CreateModal = ({
   const handleInput = (e) => {
     setHeadingText(e.target.value);
   };
-
+  // Following three functions are for user experiences handling the input heading and text area.
   const handleInputKeyDown = (e) => {
     if (e.key === "Enter") {
       e.preventDefault(); // Prevent the default behavior of adding a newline in the input field
@@ -43,6 +51,7 @@ const CreateModal = ({
     <div className="note new container rounded create-modal p-2 m-1 pe-3">
       <div className=" whole rounded ">
         <input
+          ref={headingInputRef}
           className="border-0 input-lg rounded ps-2 pt-2 h-input pe-2 pb-0 "
           onKeyDown={handleInputKeyDown}
           id="input-h"
